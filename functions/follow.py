@@ -5,7 +5,7 @@ from time import sleep
 
 
 def get_credential():
-    with open('functions/credential.json', 'r') as json_file :
+    with open('functions/log.json', 'r') as json_file :
         cred = json.load(json_file)
     return cred
 
@@ -13,13 +13,13 @@ def get_credential():
 def get_pages():
     with open('functions/pages.json', 'r') as json_file :
         pg = json.load(json_file)
-        search_bar = driver.find_element_by_xpath('').click()
     return pg
 
 
 def instagram():
-    driver = webdriver.Chrome('functions/chromedriver')
     data = get_credential()
+    page = get_pages()
+    driver = webdriver.Chrome('functions/chromedriver')
     driver.get('https://instagram.com')
     sleep(1)
     login = driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/div[2]/div/label/input')
@@ -35,8 +35,10 @@ def instagram():
     driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
     sleep(2)
     driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
-    
-    sleep(30)
+    sleep(2)
+    driver.get(page['link'])    
+
+    sleep(120)
 
 
 
